@@ -17,15 +17,15 @@ const level = document.querySelector('#level');
 const gridLevels = [100, 81, 49];//quante celle avrà la griglia in base alla difficoltà
 const BOMBS_NUMBER = 16;//numero di bombe presenti sempre
 
-let bombs = [];//variabile detta arrayvuoto da riempire con le bombe generate tandomicamente
+let bombs = [];//variabile detta arrayvuoto da riempire con le bombe generate randomicamente
 
 let score = 0;//punteggio che parte da 0 e va incrementandosi
 
-playBtn.addEventListener('click'. play);
+playBtn.addEventListener('click', play);
 
 function play(){
-  //con value stabilisto il numero delle celle senza invadere l'html con valori dedicati alla griglia    
-  const cellNumbers = gridsLevel(levelSelect.value);
+  //con value stabilisto il numero delle celle senza invadere l'html con valori dedicati alla griglia     
+  const cellNumbers = gridsLevel(level.value);
   console.log(cellNumbers);
   reset()
 
@@ -36,13 +36,24 @@ function play(){
 
 }
 
-function generaGriglia(cellNumbers){
+function gridsLevel(selectLevel){
+
+  if(selectLevel === "Hard"){
+    return(gridLevels[0]);
+  }else if(selectLevel === "Normal"){
+    return(gridLevels[1]);
+  }else{
+    return(gridLevels[2]);
+  }
+}
+
+function generaGriglia(CN){
 
   const grid =document.createElement('div');
   grid.className = 'grid'
 
-  for(let i = 1; i <= cellNumbers; i++){
-    const cell = generateCell(i, cellNumbers);
+  for(let i = 1; i <= CN; i++){
+    const cell = generateCell(i, CN);
     grid.append(cell);
   }
   main.append(grid);
@@ -66,7 +77,7 @@ function handleClickCell(){
 
   console.log(this.cellId);
   //verificare se l'ID della cella è contenuto nell'array globale BOMBS
-  if(!bombs,includes(this.cellId)){
+  if(!bombs.includes(this.cellId)){
     this.classList.add(/*crea il css per accendere la cella*/)
     score++;
     console.log(score);
@@ -85,7 +96,7 @@ function handleClickCell(){
 
 function endGame(isWin){
   let msg;
-  const = document.getElementsByClassName(/*fai il css delle celle */);
+  const x = document.getElementsByClassName('');
   if(isWin){
     msg =`HAI VINTO!`
     console.log('vinto')
@@ -102,7 +113,7 @@ function endGame(isWin){
 }
 
 function showBombs(){
-  const = document.getElementsByClassName(/*fai il css delle celle */);
+  const y = document.getElementsByClassName(/*fai il css delle celle */);
   for(let i = 0; i < cells.length; i++){
 
     const cell = cell[i];
@@ -136,5 +147,5 @@ function generateRandom(min, max){
 function reset(){
  //cancello bombe
   main.innerHTML ='';
-  document.querySelector('.endMessage').innerHTML ='';
+ // document.querySelector('.endMessage').innerHTML ='';
 }
